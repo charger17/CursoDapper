@@ -6,7 +6,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 
 //Se añade como dependency injection
-builder.Services.AddScoped<IRepositorio, Repositorio>();
+//builder.Services.AddScoped<IRepositorio, Repositorio>();
+builder.Services.AddScoped<IRepositorio, RepositorioContrib>();
 
 var app = builder.Build();
 
