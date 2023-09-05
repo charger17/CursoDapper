@@ -26,21 +26,28 @@ namespace AgendaDapper.Repositorio
         public Cliente AgregarCliente(Cliente cliente)
         {
             //Opcion 1
-            var sql = $"INSERT INTO Cliente(Nombres, Apellidos, Telefono, Email, Pais, FechaCreacion) VALUES (@Nombres, @Apellidos, @Telefono, @Email, @Pais, @FechaCreacion);"
-                 + "SELECT CAST(SCOPE_IDENTITY() as int);";
-            var id = _bd.Query<int>(sql, new {
-                cliente.Nombres,
-                cliente.Apellidos,
-                cliente.Telefono,
-                cliente.Email,
-                cliente.Pais,
-                cliente.FechaCreacion
-            }).SingleOrDefault();
+            //var sql = $"INSERT INTO Cliente(Nombres, Apellidos, Telefono, Email, Pais, FechaCreacion) VALUES (@Nombres, @Apellidos, @Telefono, @Email, @Pais, @FechaCreacion);"
+            //     + "SELECT CAST(SCOPE_IDENTITY() as int);";
+            //var id = _bd.Query<int>(sql, new {
+            //    cliente.Nombres,
+            //    cliente.Apellidos,
+            //    cliente.Telefono,
+            //    cliente.Email,
+            //    cliente.Pais,
+            //    cliente.FechaCreacion
+            //}).SingleOrDefault();
 
+            //cliente.IdCliente = id;
+
+            //return cliente;
+
+            //Opcion 2 más optimizada
+
+            var sql = $"INSERT INTO Cliente(Nombres, Apellidos, Telefono, Email, Pais, FechaCreacion) VALUES (@Nombres, @Apellidos, @Telefono, @Email, @Pais, @FechaCreacion);" 
+                + "SELECT CAST(SCOPE_IDENTITY() as int);";
+            var id = _bd.Query<int>(sql, cliente).SingleOrDefault();
             cliente.IdCliente = id;
-
             return cliente;
-
         }
 
         public void BorrarCliente(int id)
