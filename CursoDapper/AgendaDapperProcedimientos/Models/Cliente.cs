@@ -2,9 +2,10 @@
 
 namespace AgendaDapper.Models
 {
+    [Dapper.Contrib.Extensions.Table("Cliente")]
     public class Cliente
     {
-        [Key]
+        [Dapper.Contrib.Extensions.Key]
         public int IdCliente { get; set; }
 
         [Required]
