@@ -73,6 +73,18 @@ namespace AgendaDapper.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        [HttpGet]
+        public IActionResult Borrar(int? id)
+        {
+            if (id is null)
+            {
+                return NotFound();
+            }
+
+            _repo.BorrarCliente(id.GetValueOrDefault());
+            return RedirectToAction(nameof(Index));
+        }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
