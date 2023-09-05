@@ -1,7 +1,12 @@
+using AgendaDapper.Repositorio;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+//Se añade como dependency injection
+builder.Services.AddScoped<IRepositorio, Repositorio>();
 
 var app = builder.Build();
 
@@ -18,6 +23,6 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{controller=Inicio}/{action=Index}/{id?}");
 
 app.Run();

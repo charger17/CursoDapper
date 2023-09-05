@@ -19,4 +19,18 @@ html {
 
 body {
   margin-bottom: 60px;
+  background: #dcdcdc;
+}
+
+.table-responsive-modif {
+    overflow-x: auto;
+}
+
+#contendor1 {
+    background-color: white;
+    border: 1px solid gray;
+    border-radius: 5px;
+     -webkit-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.29);
+    -moz-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.29);
+    box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.29);
 }
