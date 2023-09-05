@@ -7,6 +7,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AgendaDapper", "AgendaDappe
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AgendaDapper", "AgendaDapper\AgendaDapper.csproj", "{5DBB5249-FE47-4B30-89E1-9E3D7796DDF2}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AgendaDapperProcedimientos", "AgendaDapperProcedimientos", "{C248A573-5C13-4829-A632-81CA5B945142}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AgendaDapperProcedimientos", "AgendaDapperProcedimientos\AgendaDapperProcedimientos.csproj", "{2E7AE3B2-FC47-40A3-B083-03DA1C8560D2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -17,12 +21,17 @@ Global
 		{5DBB5249-FE47-4B30-89E1-9E3D7796DDF2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5DBB5249-FE47-4B30-89E1-9E3D7796DDF2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5DBB5249-FE47-4B30-89E1-9E3D7796DDF2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2E7AE3B2-FC47-40A3-B083-03DA1C8560D2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2E7AE3B2-FC47-40A3-B083-03DA1C8560D2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2E7AE3B2-FC47-40A3-B083-03DA1C8560D2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2E7AE3B2-FC47-40A3-B083-03DA1C8560D2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{5DBB5249-FE47-4B30-89E1-9E3D7796DDF2} = {56DE677C-E5F0-47D1-AF44-FB6715CC9CEC}
+		{2E7AE3B2-FC47-40A3-B083-03DA1C8560D2} = {C248A573-5C13-4829-A632-81CA5B945142}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0F70B563-1DB9-46B1-A412-91C50021D1CF}
