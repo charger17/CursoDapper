@@ -16,57 +16,50 @@ namespace AgendaDapper.Repositorio
 
         public Cliente ActualizarCliente(Cliente cliente)
         {
-            var sql = $@"UPDATE Cliente SET Nombres = @Nombres, Apellidos = @Apellidos, Telefono = @Telefono, Email = @Email, Pais = @Pais"
-                + " WHERE IdCliente = @IdCliente";
-            _bd.Execute(sql, cliente);
+            var parametros = new DynamicParameters();
+            parametros.Add("@ClienteId", cliente.IdCliente, DbType.Int32);
+            parametros.Add("@Nombres", cliente.Nombres);
+            parametros.Add("@Apellidos", cliente.Apellidos);
+            parametros.Add("@Telefono", cliente.Telefono);
+            parametros.Add("@Email", cliente.Email);
+            parametros.Add("@Pais", cliente.Pais);
+            parametros.Add("@FechaCreacion", cliente.FechaCreacion, DbType.DateTime, ParameterDirection.Input);
+
+            _bd.Execute("sp_ActualizarCliente", parametros, commandType: CommandType.StoredProcedure);
 
             return cliente;
         }
 
         public Cliente AgregarCliente(Cliente cliente)
         {
-            //Opcion 1
-            //var sql = $"INSERT INTO Cliente(Nombres, Apellidos, Telefono, Email, Pais, FechaCreacion) VALUES (@Nombres, @Apellidos, @Telefono, @Email, @Pais, @FechaCreacion);"
-            //     + "SELECT CAST(SCOPE_IDENTITY() as int);";
-            //var id = _bd.Query<int>(sql, new {
-            //    cliente.Nombres,
-            //    cliente.Apellidos,
-            //    cliente.Telefono,
-            //    cliente.Email,
-            //    cliente.Pais,
-            //    cliente.FechaCreacion
-            //}).SingleOrDefault();
+            var parametros = new DynamicParameters();
+            parametros.Add("@ClienteId", 0, DbType.Int32, direction: ParameterDirection.Output);
+            parametros.Add("@Nombres", cliente.Nombres);
+            parametros.Add("@Apellidos", cliente.Apellidos);
+            parametros.Add("@Telefono", cliente.Telefono);
+            parametros.Add("@Email", cliente.Email);
+            parametros.Add("@Pais", cliente.Pais);
+            parametros.Add("@FechaCreacion", cliente.FechaCreacion, DbType.DateTime, ParameterDirection.Input);
 
-            //cliente.IdCliente = id;
+            _bd.Execute("sp_CrearCliente", parametros, commandType: CommandType.StoredProcedure);
 
-            //return cliente;
-
-            //Opcion 2 más optimizada
-
-            var sql = $"INSERT INTO Cliente(Nombres, Apellidos, Telefono, Email, Pais, FechaCreacion) VALUES (@Nombres, @Apellidos, @Telefono, @Email, @Pais, @FechaCreacion);" 
-                + "SELECT CAST(SCOPE_IDENTITY() as int);";
-            var id = _bd.Query<int>(sql, cliente).SingleOrDefault();
-            cliente.IdCliente = id;
+            cliente.IdCliente = parametros.Get<int>("ClienteId");
             return cliente;
         }
 
         public void BorrarCliente(int id)
         {
-            var sql = "DELETE FROM Cliente WHERE IdCliente = @IdCliente";
-            _bd.Execute(sql, new {@IdCliente = id});
+            _bd.Execute("sp_BorrarCliente", new { ClienteId = id }, commandType: CommandType.StoredProcedure);
         }
 
         public Cliente GetCliente(int id)
         {
-            var sql = $"SELECT * FROM Cliente WHERE IdCliente = @IdCliente";
-            return _bd.Query<Cliente>(sql, new { @IdCliente = id }).SingleOrDefault();
+            return _bd.Query<Cliente>("sp_ClienteId", new {ClienteId = id} ,commandType: CommandType.StoredProcedure).SingleOrDefault();
         }
 
         public List<Cliente> GetClientes()
         {
-            var sql = "SELECT * FROM Cliente";
-
-            return _bd.Query<Cliente>(sql).ToList(); ;
+            return _bd.Query<Cliente>("sp_GetClientes", commandType: CommandType.StoredProcedure).ToList(); 
         }
     }
 }
