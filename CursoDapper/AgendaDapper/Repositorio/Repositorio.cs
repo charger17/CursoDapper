@@ -16,12 +16,31 @@ namespace AgendaDapper.Repositorio
 
         public Cliente ActualizarCliente(Cliente cliente)
         {
-            throw new NotImplementedException();
+            var sql = $@"UPDATE Cliente SET Nombres = @Nombres, Apellidos = @Apellidos, Telefono = @Telefono, Email = @Email, Pais = @Pais"
+                + " WHERE IdCliente = @IdCliente";
+            _bd.Execute(sql, cliente);
+
+            return cliente;
         }
 
         public Cliente AgregarCliente(Cliente cliente)
         {
-            throw new NotImplementedException();
+            //Opcion 1
+            var sql = $"INSERT INTO Cliente(Nombres, Apellidos, Telefono, Email, Pais, FechaCreacion) VALUES (@Nombres, @Apellidos, @Telefono, @Email, @Pais, @FechaCreacion);"
+                 + "SELECT CAST(SCOPE_IDENTITY()) AS int;";
+            var id = _bd.Query<int>(sql, new {
+                cliente.Nombres,
+                cliente.Apellidos,
+                cliente.Telefono,
+                cliente.Email,
+                cliente.Pais,
+                cliente.FechaCreacion
+            }).SingleOrDefault();
+
+            cliente.IdCliente = id;
+
+            return cliente;
+
         }
 
         public void BorrarCliente(int id)
