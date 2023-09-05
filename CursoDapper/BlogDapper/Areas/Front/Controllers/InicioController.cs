@@ -2,13 +2,14 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
-namespace BlogDapper.Controllers
+namespace BlogDapper.Areas.Front.Controllers
 {
-    public class HomeController : Controller
+    [Area("Front")]
+    public class InicioController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly ILogger<InicioController> _logger;
 
-        public HomeController(ILogger<HomeController> logger)
+        public InicioController(ILogger<InicioController> logger)
         {
             _logger = logger;
         }
