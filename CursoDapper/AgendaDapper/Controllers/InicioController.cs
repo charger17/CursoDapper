@@ -8,18 +8,18 @@ namespace AgendaDapper.Controllers
     public class InicioController : Controller
     {
         private readonly ILogger<InicioController> _logger;
-        private readonly IRepositorio _repoo;
+        private readonly IRepositorio _repo;
 
         public InicioController(ILogger<InicioController> logger, IRepositorio repo)
         {
             _logger = logger;
-            _repoo = repo;
+            _repo = repo;
         }
 
         [HttpGet]
         public IActionResult Index()
         {
-            return View(_repoo.GetClientes());
+            return View(_repo.GetClientes());
         }
 
         [HttpGet]
@@ -29,6 +29,7 @@ namespace AgendaDapper.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult Crear([Bind("IdCliente, Nombres, Apellidos, Telefono, Email, Pais, FechaCreacion")]Cliente cliente)
         {
             if (!ModelState.IsValid)
@@ -36,7 +37,38 @@ namespace AgendaDapper.Controllers
                 return View(cliente);
             }
 
-            _repoo.AgregarCliente(cliente);
+            _repo.AgregarCliente(cliente);
+
+            return RedirectToAction(nameof(Index));
+        }
+
+        [HttpGet]
+        public IActionResult Editar(int? id)
+        {
+            var cliente = _repo.GetCliente(id.GetValueOrDefault());
+            if (cliente is null)
+            {
+                return NotFound();
+            }
+
+            return View(cliente);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Editar(int id, [Bind("IdCliente, Nombres, Apellidos, Telefono, Email, Pais, FechaCreacion")] Cliente cliente)
+        {
+            if (id != cliente.IdCliente)
+            {
+                return NotFound();
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return View(cliente);
+            }
+
+            _repo.ActualizarCliente(cliente);
 
             return RedirectToAction(nameof(Index));
         }
