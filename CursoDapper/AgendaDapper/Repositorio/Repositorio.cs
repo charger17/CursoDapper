@@ -27,7 +27,7 @@ namespace AgendaDapper.Repositorio
         {
             //Opcion 1
             var sql = $"INSERT INTO Cliente(Nombres, Apellidos, Telefono, Email, Pais, FechaCreacion) VALUES (@Nombres, @Apellidos, @Telefono, @Email, @Pais, @FechaCreacion);"
-                 + "SELECT CAST(SCOPE_IDENTITY()) AS int;";
+                 + "SELECT CAST(SCOPE_IDENTITY() as int);";
             var id = _bd.Query<int>(sql, new {
                 cliente.Nombres,
                 cliente.Apellidos,
