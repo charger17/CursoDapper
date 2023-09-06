@@ -1,7 +1,12 @@
+using BlogDapper.Repositorio;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+//Se añade como dependency injection
+builder.Services.AddScoped<ICategoriaRepositorio, CategoriaRepositorio>();
 
 var app = builder.Build();
 
