@@ -17,5 +17,14 @@ namespace BlogDapper.Areas.Admin.Controllers
         {
             return View();
         }
+
+        #region
+        [HttpGet]
+        public IActionResult GetCategorias()
+        {
+            return Json(new { data = _repoCategoria.GetCategorias() });
+        }
+
+        #endregion
     }
 }

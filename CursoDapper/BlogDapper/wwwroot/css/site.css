@@ -20,3 +20,12 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+.table-responsive-modif {
+    overflow-x: auto;
+}
+
+.cursor-modif{
+    cursor: pointer;
+    width: 100px;
+}
