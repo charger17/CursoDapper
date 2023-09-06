@@ -11,7 +11,7 @@ function cargarDataTable() {
             "type": "GET",
             "datatype" : "json"
         },
-        "colums": [
+        "columns": [
             { "data": "idCategoria", "width": "5%" },
             { "data": "nombre", "width": "40%" },
             { "data": "fechaCreacion", "width": "5%" },
