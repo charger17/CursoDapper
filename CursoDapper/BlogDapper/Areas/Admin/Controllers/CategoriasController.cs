@@ -49,7 +49,7 @@ namespace BlogDapper.Areas.Admin.Controllers
 
             var categoria = _repoCategoria.GetCategoria(id.GetValueOrDefault());
 
-            if(categoria == null)
+            if (categoria == null)
             {
                 return NotFound();
             }
@@ -61,7 +61,7 @@ namespace BlogDapper.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Editar(int id, [Bind("IdCategoria, Nombre, FechaCreacion")] Categoria categoria)
         {
-            if(id != categoria.IdCategoria)
+            if (id != categoria.IdCategoria)
             {
                 return NotFound(categoria);
             }
@@ -82,6 +82,20 @@ namespace BlogDapper.Areas.Admin.Controllers
             return Json(new { data = _repoCategoria.GetCategorias() });
         }
 
+        [HttpDelete]
+        public IActionResult BorrarCategoria(int? id)
+        {
+            if (id is null)
+            {
+                return NotFound();
+            }
+
+            _repoCategoria.BorrarCategoria(id.GetValueOrDefault());
+            return Json(new { success = true, message = "Categoría borrada correctamente" });
+
+
+
+        }
         #endregion
     }
 }
