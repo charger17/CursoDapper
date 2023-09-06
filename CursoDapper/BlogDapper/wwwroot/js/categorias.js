@@ -1,4 +1,4 @@
-﻿const dataTable;
+﻿var dataTable;
 
 $(document).ready(function () {
     cargarDataTable();
@@ -21,9 +21,11 @@ function cargarDataTable() {
                     return `
 
                         <div class="text-center">
-                            <a href="/admin/categorias/editar/${data}" class="btn btn-success text-white cursor-modif"> Editar </a>
+                            <a href="/admin/categorias/editar/${data}" class="btn btn-success text-white cursor-modif">
+                            <i class="bi bi-pencil-square"></i> Editar </a>
                             &nbsp;
-                            <a onclick=Delete("/admin/categorias/BorrarCategoria/${data}")  class="btn btn-danger text-white cursor-modif"> Borrar </a>
+                            <a onclick=Delete("/admin/categorias/BorrarCategoria/${data}")  class="btn btn-danger text-white cursor-modif"> 
+                            <i class="bi bi-x-square"></i> Borrar </a>
                         </div>
 
                     `;
