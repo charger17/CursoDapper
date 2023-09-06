@@ -27,6 +27,7 @@ namespace BlogDapper.Areas.Admin.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult Crear([Bind("IdCategoria, Nombre, FechaCreacion")] Categoria categoria)
         {
             if (!ModelState.IsValid)
@@ -35,6 +36,42 @@ namespace BlogDapper.Areas.Admin.Controllers
 
             }
             _repoCategoria.CrearCategoria(categoria);
+            return RedirectToAction(nameof(Index));
+        }
+
+        [HttpGet]
+        public IActionResult Editar(int? id)
+        {
+            if (id is null)
+            {
+                return NotFound();
+            }
+
+            var categoria = _repoCategoria.GetCategoria(id.GetValueOrDefault());
+
+            if(categoria == null)
+            {
+                return NotFound();
+            }
+
+            return View(categoria);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Editar(int id, [Bind("IdCategoria, Nombre, FechaCreacion")] Categoria categoria)
+        {
+            if(id != categoria.IdCategoria)
+            {
+                return NotFound(categoria);
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return View(categoria);
+
+            }
+            _repoCategoria.ActualizarCategoria(categoria);
             return RedirectToAction(nameof(Index));
         }
 

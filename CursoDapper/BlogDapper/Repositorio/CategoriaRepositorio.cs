@@ -44,7 +44,7 @@ namespace BlogDapper.Repositorio
 
         public Categoria GetCategoria(int id)
         {
-            var sql = "SELECT * FROM Categoria WHERE IdCategorio = @IdCategoria";
+            var sql = "SELECT * FROM Categoria WHERE IdCategoria = @IdCategoria";
             return _bd.Query<Categoria>(sql, new { IdCategoria = id }).SingleOrDefault();
         }
 
