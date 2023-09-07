@@ -11,5 +11,8 @@ namespace BlogDapper.Models
         public string Nombre { get; set; }
 
         public DateTime FechaCreacion { get; set; }
+
+        //Esta indica la relacion con artículo, donde una categoría puede tener muchos artículos
+        public List<Articulo> Articulo { get; set; }
     }
 }
