@@ -60,7 +60,7 @@ namespace BlogDapper.Repositorio
             var sql = "SELECT * FROM Etiqueta";
             var lista = _bd.Query<Etiqueta>(sql).ToList();
 
-            SelectList listaEtiquetas = new SelectList(lista, "IdEtiqueta", "Nombre");
+            SelectList listaEtiquetas = new SelectList(lista, "IdEtiqueta", "NombreEtiqueta");
 
             return listaEtiquetas;
         }
@@ -79,6 +79,19 @@ namespace BlogDapper.Repositorio
             }, splitOn: "IdEtiqueta").ToList();
 
             return articulo;
+        }
+
+        public ArticuloEtiquetas AsignarEtiquetas(ArticuloEtiquetas articuloEtiquetas)
+        {
+            var sql = "INSERT INTO ArticuloEtiquetas(IdArticulo, IdEtiqueta) VALUES (@IdArticulo, @IdEtiqueta)";
+
+            _bd.Execute(sql, new
+            {
+                articuloEtiquetas.IdArticulo,
+                articuloEtiquetas.IdEtiqueta
+            });
+
+            return articuloEtiquetas;
         }
     }
 }

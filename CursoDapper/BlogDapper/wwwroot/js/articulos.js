@@ -35,10 +35,13 @@ function cargarDataTable() {
                             &nbsp;
                             <a onclick=Delete("/admin/articulos/BorrarArticulo/${data}")  class="btn btn-danger text-white cursor-modif"> 
                             <i class="bi bi-x-square"></i> Borrar </a>
+                            &nbsp;
+                             <a href="/admin/articulos/asignarEtiquetas/${data}" class="btn btn-secondary text-white cursor-modif">
+                            <i class="bi bi-tags-fill"></i> Asignar Etiquetas </a>
                         </div>
 
                     `;
-                }
+                }, "width" :"40%"
             }
         ]
     });

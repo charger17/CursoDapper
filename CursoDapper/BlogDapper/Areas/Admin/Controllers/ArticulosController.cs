@@ -10,12 +10,14 @@ namespace BlogDapper.Areas.Admin.Controllers
         private readonly IArticuloRepositorio _repoArticulo;
         private readonly ICategoriaRepositorio _repoCategoria;
         private readonly IWebHostEnvironment _hostingEnvironment;
+        private readonly IEtiquetaRepositorio _repoEtiqueta;
 
-        public ArticulosController(IArticuloRepositorio repoArticulo, ICategoriaRepositorio repoCategoria, IWebHostEnvironment hostingEnvironment)
+        public ArticulosController(IArticuloRepositorio repoArticulo, ICategoriaRepositorio repoCategoria, IWebHostEnvironment hostingEnvironment, IEtiquetaRepositorio repoEtiqueta)
         {
             _repoArticulo = repoArticulo;
             _repoCategoria = repoCategoria;
             _hostingEnvironment = hostingEnvironment;
+            _repoEtiqueta = repoEtiqueta;
         }
 
         [HttpGet]
@@ -134,6 +136,51 @@ namespace BlogDapper.Areas.Admin.Controllers
             }
             //esta linea valdia el modelo si es "false" retorna a la vista crear pero del get, o sea al formulario
             return RedirectToAction(nameof(Crear));
+        }
+
+        //para la parte de asignar etiquetas a un artículo
+        [HttpGet]
+        public IActionResult AsignarEtiquetas(int? id)
+        {
+            if (id is null)
+            {
+                return NotFound();
+            }
+
+            var articulo = _repoArticulo.GetArticulo(id.GetValueOrDefault());
+            if (articulo is null)
+            {
+                return NotFound();
+            }
+
+            ViewBag.SelectList = _repoEtiqueta.GetListaEtiquetas();
+
+            return View(articulo);
+
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult AsignarEtiquetas(int? idArticulo, int? IdEtiqueta)
+        {
+            if (idArticulo is null || IdEtiqueta is null )
+            {
+                return NotFound();
+            }
+
+            if (idArticulo.GetValueOrDefault() == 0 || IdEtiqueta.GetValueOrDefault() == 0)
+            {
+                ViewBag.SelectList = _repoEtiqueta.GetListaEtiquetas();
+                return View();
+            }
+
+            ArticuloEtiquetas artiEtiquetas = new ArticuloEtiquetas();
+            artiEtiquetas.IdArticulo = idArticulo.GetValueOrDefault();
+            artiEtiquetas.IdEtiqueta = IdEtiqueta.GetValueOrDefault();
+
+            _repoEtiqueta.AsignarEtiquetas(artiEtiquetas);
+            return RedirectToAction(nameof(Index));
+
         }
 
         #region
