@@ -9,11 +9,13 @@ namespace BlogDapper.Areas.Admin.Controllers
     {
         private readonly IArticuloRepositorio _repoArticulo;
         private readonly ICategoriaRepositorio _repoCategoria;
+        private readonly IWebHostEnvironment _hostingEnvironment;
 
-        public ArticulosController(IArticuloRepositorio repoArticulo, ICategoriaRepositorio repoCategoria)
+        public ArticulosController(IArticuloRepositorio repoArticulo, ICategoriaRepositorio repoCategoria, IWebHostEnvironment hostingEnvironment)
         {
             _repoArticulo = repoArticulo;
             _repoCategoria = repoCategoria;
+            _hostingEnvironment = hostingEnvironment;
         }
 
         [HttpGet]
@@ -32,15 +34,35 @@ namespace BlogDapper.Areas.Admin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Crear([Bind("IdArticulo, Nombre, FechaCreacion")] Articulo articulo)
+        public IActionResult Crear([Bind("IdArticulo, Titulo, Descripcion, Imagen, Estadoo, CategoriaId, FechaCreacion")] Articulo articulo)
         {
             if (!ModelState.IsValid)
             {
                 return View(articulo);
 
             }
-            _repoArticulo.CrearArticulo(articulo);
-            return RedirectToAction(nameof(Index));
+
+            string rutaPrincial = _hostingEnvironment.WebRootPath;
+            var archivos = HttpContext.Request.Form.Files;
+
+            if (articulo.IdArticulo == 0)
+            {
+                string nombreArchivo = Guid.NewGuid().ToString();
+                var subidas = Path.Combine(rutaPrincial, @"imagenes\articulos");
+                var extension = Path.GetExtension(archivos[0].FileName);
+
+                using (var fileStreams = new FileStream(Path.Combine(subidas, nombreArchivo + extension), FileMode.Create))
+                {
+                    archivos[0].CopyTo(fileStreams);
+                }
+
+                articulo.Imagen = @"\imagenes\articulos\" + nombreArchivo + extension;
+                _repoArticulo.CrearArticulo(articulo);
+                return RedirectToAction(nameof(Index));
+
+            }
+            //esta linea valdia el modelo si es "false" retorna a la vista crear pero del get, o sea al formulario
+            return RedirectToAction(nameof(Crear));
         }
 
         [HttpGet]
@@ -75,6 +97,7 @@ namespace BlogDapper.Areas.Admin.Controllers
                 return View(articulo);
 
             }
+
             _repoArticulo.ActualizarArticulo(articulo);
             return RedirectToAction(nameof(Index));
         }
