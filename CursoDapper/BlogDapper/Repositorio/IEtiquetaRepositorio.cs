@@ -19,7 +19,7 @@ namespace BlogDapper.Repositorio
         IEnumerable<SelectListItem> GetListaEtiquetas();
 
         //Método especial para la acción de asignar etiquetas
-        ArticuloEtiquetas AsignarEtiquetas (ArticuloEtiquetas etiqueta)
+        ArticuloEtiquetas AsignarEtiquetas(ArticuloEtiquetas etiqueta);
 
         //Método especial para obtener los artículos con las etiquetas asigandas
         List<Articulo> GetArticuloEtiquetas();

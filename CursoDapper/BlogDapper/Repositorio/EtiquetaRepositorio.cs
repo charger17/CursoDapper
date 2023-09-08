@@ -60,7 +60,7 @@ namespace BlogDapper.Repositorio
             var sql = "SELECT * FROM Etiqueta";
             var lista = _bd.Query<Etiqueta>(sql).ToList();
 
-            SelectList listaEtiquetas = new SelectList(lista, "IdEtiqueta", "Nombre");
+            SelectList listaEtiquetas = new SelectList(lista, "IdEtiqueta", "NombreEtiqueta");
 
             return listaEtiquetas;
         }
