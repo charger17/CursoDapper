@@ -1,4 +1,5 @@
 ﻿using BlogDapper.Models;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace BlogDapper.Repositorio
 {
@@ -15,5 +16,7 @@ namespace BlogDapper.Repositorio
         void BorrarCategoria(int id);
 
         //Metodo especial para el dropdown con la lista de catergorias en la vista de articulos, se debe crear aqui apra invocarse desde el controlador articulos
+
+        IEnumerable<SelectListItem> GetListaCategorias();
     }
 }
