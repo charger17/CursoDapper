@@ -15,5 +15,7 @@ namespace BlogDapper.Repositorio
 
         void BorrarComentario(int id);
 
+        //Se agrega nuevo método para obtener la relacion entre artículo y comentario
+        List<Comentario> GetComentarioArticulo();
     }
 }

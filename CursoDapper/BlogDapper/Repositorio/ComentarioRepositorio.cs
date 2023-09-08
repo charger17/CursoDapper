@@ -51,10 +51,25 @@ namespace BlogDapper.Repositorio
             return _bd.Query<Comentario>(sql, new { IdComentario = id }).SingleOrDefault();
         }
 
+
         public List<Comentario> GetComentarios()
         {
             var sql = "SELECT * FROM Comentario";
             return _bd.Query<Comentario>(sql).ToList();
         }
+        public List<Comentario> GetComentarioArticulo()
+        {
+            var sql = @"SELECT C.*, A.Titulo FROM Comentario C
+                        INNER JOIN Articulo A ON A.IdArticulo = C.ArticuloId
+                        ORDER BY C.IdComentario;";
+            var comentario = _bd.Query<Comentario, Articulo, Comentario>(sql, (C,A) =>
+            {
+                C.Articulo = A;
+                return C;
+            }, splitOn: "ArticuloId");
+
+            return comentario.Distinct().ToList();
+        }
+
     }
 }
