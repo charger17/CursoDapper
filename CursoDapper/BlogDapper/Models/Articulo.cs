@@ -5,6 +5,11 @@ namespace BlogDapper.Models
 {
     public class Articulo
     {
+        public Articulo()
+        {
+            Etiqueta = new List<Etiqueta>();
+            Comentario = new List<Comentario>();
+        }
         [Key]
         public int IdArticulo { get; set; }
 

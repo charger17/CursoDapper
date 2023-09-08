@@ -75,6 +75,12 @@ namespace BlogDapper.Areas.Admin.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        [HttpGet]
+        public IActionResult GetArticuloConEtiquetas()
+        {
+            return View();
+        }
+
         #region
         [HttpGet]
         public IActionResult GetEtiquetas()
@@ -98,9 +104,6 @@ namespace BlogDapper.Areas.Admin.Controllers
 
             _repoEtiqueta.BorrarEtiqueta(id.GetValueOrDefault());
             return Json(new { success = true, message = "Etiqeuta borrada correctamente" });
-
-
-
         }
         #endregion
     }
