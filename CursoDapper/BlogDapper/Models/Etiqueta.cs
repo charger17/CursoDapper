@@ -8,7 +8,7 @@ namespace BlogDapper.Models
         public int IdEtiqueta { get; set; }
 
         [Required(ErrorMessage = "EL campo {0} es obligatorio.")]
-        public string NombreEtiqeuta { get; set; }
+        public string NombreEtiqueta { get; set; }
 
         public DateTime FechaCreacion { get; set; }
 
