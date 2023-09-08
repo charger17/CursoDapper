@@ -28,7 +28,9 @@ namespace BlogDapper.Models
         //Esta indica la relación con categoría de que un artículo debe pertenecer a una sola categoría
         public virtual Categoria Categoria { get; set; }
 
-        public List<Comentario> comentarios { get; set; }
+        public List<Comentario> Comentario { get; set; }
+
+        public List<Etiqueta> Etiqueta { get; set; }
 
     }
 }
