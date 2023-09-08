@@ -13,5 +13,7 @@ namespace BlogDapper.Repositorio
         Categoria ActualizarCategoria(Categoria categoria);
 
         void BorrarCategoria(int id);
+
+        //Metodo especial para el dropdown con la lista de catergorias en la vista de articulos, se debe crear aqui apra invocarse desde el controlador articulos
     }
 }

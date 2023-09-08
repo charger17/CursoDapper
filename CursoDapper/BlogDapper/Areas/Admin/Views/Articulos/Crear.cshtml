@@ -1,0 +1,57 @@
+﻿@model Articulo
+@{
+    ViewData["Title"] = "Crear Articulo";
+}
+
+
+<h1>Crear Articulo</h1>
+
+<hr />
+<div class="row bg-light border p-4">
+    <div class="col-sm-12 col-md-12 col-lg-8">
+        <form asp-action="Crear">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group m-4">
+                <label asp-for="Titulo" class="control-label"></label>
+                <input asp-for="Titulo" class="form-control" placeholder="Ingresa el nombre del articulo." />
+                <span asp-validation-for="Titulo" class="text-danger"></span>
+            </div>
+
+            <div class="form-group m-4">
+                <label asp-for="Descripcion" class="control-label"></label>
+                <textarea asp-for="Descripcion" class="form-control" placeholder="Ingresa la descripción del articulo."> </textarea>
+                <span asp-validation-for="Descripcion" class="text-danger"></span>
+            </div>
+
+            <div class="form-group m-4">
+                <div class="col-sm-12">
+                    <label asp-for="Estado" class="control-label"></label>
+                </div>
+                <div class="col-sm-12">
+                    <input asp-for="Estado" type="checkbox" class="" />
+                    <span asp-validation-for="Estado" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="form-group m-4">
+                <div class="col-sm-12">
+                    <label class="control-label">Seleccionar Imagen: </label>
+                </div>
+                <div class="col-sm-12">
+                    <input type="file" class="form-control" name="archivos"/>
+                    <span asp-validation-for="Imagen" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="form-group m-4">
+                <div class="col-sm-12 col-md-6">
+                    <input type="submit" value="Crear Articulo" class="btn btn-outline-primary form-control" />
+                </div>
+                <div class="col-sm-12 col-md-6">
+                    <a asp-action="Index" class="btn btn-outline-warning form-control">Volver a lista</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
