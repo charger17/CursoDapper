@@ -9,7 +9,7 @@
 <hr />
 <div class="row bg-light border p-4">
     <div class="col-sm-12 col-md-12 col-lg-8">
-        <form asp-action="Crear">
+        <form asp-action="Crear" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
             <div class="form-group m-4">
@@ -61,3 +61,17 @@
         </form>
     </div>
 </div>
+
+@section Scripts{
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script src="https://cdn.tiny.cloud/1/qukxrn62f4bz0iv6z7enaelkkzuzugir28y709xit9xm659s/tinymce/5/tinymce.min.js"></script>
+    <script>
+        tinymce.init({
+            selector: 'textarea',
+            plugins: 'lists',
+            menubar: 'format'
+        });
+    </script>
+}
