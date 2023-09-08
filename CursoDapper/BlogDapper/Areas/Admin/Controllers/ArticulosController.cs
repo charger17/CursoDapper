@@ -73,33 +73,67 @@ namespace BlogDapper.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var Articulo = _repoArticulo.GetArticulo(id.GetValueOrDefault());
+            var articulo = _repoArticulo.GetArticulo(id.GetValueOrDefault());
 
-            if (Articulo == null)
+            if (articulo == null)
             {
                 return NotFound();
             }
-
-            return View(Articulo);
+            ViewBag.SelectList = _repoCategoria.GetListaCategorias();
+            return View(articulo);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Editar(int id, [Bind("IdArticulo, Nombre, FechaCreacion")] Articulo articulo)
+        public IActionResult Editar(int id, [Bind("IdArticulo, Titulo, Descripcion, Imagen, Estadoo, CategoriaId, FechaCreacion")] Articulo articulo)
         {
-            if (id != articulo.IdArticulo)
-            {
-                return NotFound();
-            }
-
             if (!ModelState.IsValid)
             {
                 return View(articulo);
 
             }
 
-            _repoArticulo.ActualizarArticulo(articulo);
-            return RedirectToAction(nameof(Index));
+            string rutaPrincial = _hostingEnvironment.WebRootPath;
+            var archivos = HttpContext.Request.Form.Files;
+
+            var articuloDesdeDB = _repoArticulo.GetArticulo(id);
+
+            if (archivos.Count() > 0)
+            {
+                //Editamos o cambiamos la imgen del articulo
+                string nombreArchivo = Guid.NewGuid().ToString();
+                var subidas = Path.Combine(rutaPrincial, @"imagenes\articulos");
+                var extension = Path.GetExtension(archivos[0].FileName);
+                var nuevaExtensión = Path.GetExtension(archivos[0].FileName);
+
+                var rutaImagen = Path.Combine(rutaPrincial, articuloDesdeDB.Imagen.TrimStart('\\'));
+
+                if (System.IO.File.Exists(rutaImagen))
+                {
+                    System.IO.File.Delete(rutaImagen);
+                }
+
+                //subirmos el nuevo archivo
+
+                using (var fileStreams = new FileStream(Path.Combine(subidas, nombreArchivo + nuevaExtensión), FileMode.Create))
+                {
+                    archivos[0].CopyTo(fileStreams);
+                }
+
+                articulo.Imagen = @"\imagenes\articulos\" + nombreArchivo + nuevaExtensión;
+                _repoArticulo.ActualizarArticulo(articulo);
+                return RedirectToAction(nameof(Index));
+
+            }
+            else
+            {
+                //aquí es cuan la imagen ya existe pero no se reemplaza
+                articulo.Imagen = articuloDesdeDB.Imagen;
+                _repoArticulo.ActualizarArticulo(articulo);
+                return RedirectToAction(nameof(Index));
+            }
+            //esta linea valdia el modelo si es "false" retorna a la vista crear pero del get, o sea al formulario
+            return RedirectToAction(nameof(Crear));
         }
 
         #region
