@@ -1,0 +1,32 @@
+﻿@model IEnumerable<Etiqueta>
+@{
+    ViewData["Title"] = "Lista de Etiquetas";
+}
+
+
+<div class="row m-2">
+    <div class="col-sm-12 col-md-9">
+        <h1>Lista de Etiquetas</h1>
+    </div>
+    <div class="col-sm-12 col-md-3">
+        <a asp-action="Crear" class="btn btn-outline-primary float-end"> <i class="bi bi-plus-square"></i> Agregar Etiquetas</a>
+    </div>
+</div>
+
+<div class=" card bg-light p-3 table-responsive-modif">
+    <table class="table" id="tblEtiquetas">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>NombreEtiqeuta</th>
+                <th>Fecha de Creación</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+    </table>
+</div>
+
+
+@section Scripts{
+    <script src="~/js/etiquetas.js"></script>
+}
