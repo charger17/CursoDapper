@@ -94,5 +94,13 @@ namespace BlogDapper.Areas.Front.Controllers
             return RedirectToAction("Index", "Inicio");
 
         }
+
+        [HttpPost]
+        [AutoValidateAntiforgeryToken]
+        public IActionResult Salir()
+        {
+            HttpContext.SignOutAsync();
+            return RedirectToAction("Index", "Inicio");
+        }
     }
 }
