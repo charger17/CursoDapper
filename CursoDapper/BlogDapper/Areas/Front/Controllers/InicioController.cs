@@ -17,6 +17,7 @@ namespace BlogDapper.Areas.Front.Controllers
             _repoSlider = repoSlider;
         }
 
+        [HttpGet]
         public IActionResult Index()
         {
             ViewData["ListaSlider"] = _repoSlider.GetSliders();
@@ -38,6 +39,18 @@ namespace BlogDapper.Areas.Front.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
+        [HttpGet]
+        public IActionResult Detalle(int? id)
+        {
+            if (id is null)
+            {
+                return RedirectToAction(nameof(Index));
+            }
+            var articulo = _repoSlider.GetArticuloForSlider(id.GetValueOrDefault());
+
+            return View(articulo);
         }
     }
 }
