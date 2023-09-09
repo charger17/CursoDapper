@@ -43,5 +43,18 @@ namespace BlogDapper.Repositorio
                 IdArticulo = id
             }).Single();
         }
+
+        public void InsertComentarioForSlider(Comentario comentario)
+        {
+            var sqlSlider = @"INSERT INTO Comentario(Titulo, Mensaje, ArticuloId, FechaCreacion) VALUES(@Titulo, @Mensaje, @ArticuloId, @FechaCreacion)";
+
+            _bd.Execute(sqlSlider, new
+            {
+                comentario.Titulo,
+                comentario.Mensaje,
+                comentario.ArticuloId,
+                FechaCreacion = DateTime.Now
+            });
+        }
     }
 }

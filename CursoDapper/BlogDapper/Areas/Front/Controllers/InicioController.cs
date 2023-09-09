@@ -52,5 +52,20 @@ namespace BlogDapper.Areas.Front.Controllers
 
             return View(articulo);
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Detalle(string Titulo, string Mensaje, int ArticuloId)
+        {
+            
+             _repoSlider.InsertComentarioForSlider(new Comentario
+             {
+                 Titulo = Titulo,
+                 Mensaje = Mensaje,
+                 ArticuloId = ArticuloId
+             });
+
+            return RedirectToAction(nameof(Index));
+        }
     }
 }
