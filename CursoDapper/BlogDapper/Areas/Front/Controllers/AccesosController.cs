@@ -27,10 +27,11 @@ namespace BlogDapper.Areas.Front.Controllers
 
         [HttpPost]
         [AutoValidateAntiforgeryToken]
-        public IActionResult UserLogin(Usuario user)
+        public IActionResult Acceso(Usuario user)
         {
             if (!ModelState.IsValid)
             {
+                TempData["mensajeConfirmacion"] = "Algunos campos obligatorios están vacios";
                 return View(user);
             }
 
@@ -53,9 +54,6 @@ namespace BlogDapper.Areas.Front.Controllers
                 TempData["mensajeConfirmacion"] = "Datos de acceso incorrectos";
                 return RedirectToAction("Acceso", "Accesos");
             }
-
-            TempData["mensajeConfirmacion"] = "Algunos campos obligatorios están vacios";
-            return RedirectToAction("Acceso", "Accesos");
 
         }
     }

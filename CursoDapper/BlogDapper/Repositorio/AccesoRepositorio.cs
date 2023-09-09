@@ -2,7 +2,7 @@
 using Dapper;
 using System.Data;
 using System.Data.SqlClient;
-using System.Security.Claims;
+using XSystem.Security.Cryptography;
 
 namespace BlogDapper.Repositorio
 {
@@ -28,6 +28,19 @@ namespace BlogDapper.Repositorio
             });
 
             return validar.ToList();
+        }
+
+        private static string obtenerMd5(string valor)
+        {
+            MD5CryptoServiceProvider x = new MD5CryptoServiceProvider();
+            byte[] data = System.Text.Encoding.UTF8.GetBytes(valor);
+            data = x.ComputeHash(data);
+            string resp = "";
+            for (int i = 0; i < data.Length; i++)
+            {
+                resp += data[i].ToString("x2").ToLower();
+            }
+            return resp;
         }
     }
 }
