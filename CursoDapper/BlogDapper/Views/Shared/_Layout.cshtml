@@ -25,34 +25,44 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-light" asp-area="Admin" asp-controller="Categorias" asp-action="Index">
-                                <i class="bi bi-bookmark-check-fill"></i> Categorias</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-light" asp-area="Admin" asp-controller="Articulos" 
-                            asp-action="Index">
-                                <i class="bi bi-sticky-fill"></i> Articulos
+                            <a class="nav-link text-light" asp-area="Front" asp-controller="Inicio" asp-action="Index">
+                                Inicio
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-light" asp-area="Admin" asp-controller="Comentarios" 
-                            asp-action="Index">
-                                <i class="bi bi-chat-left-dots-fill"></i> Comentarios
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-light" asp-area="Admin" asp-controller="Etiquetas"
-                               asp-action="Index">
-                                <i class="bi bi-tags-fill"></i> Etiquetas
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-light" asp-area="Admin" asp-controller="Etiquetas"
-                               asp-action="GetArticuloConEtiquetas">
-                                <i class="bi bi-archive-fill"></i> Articulo Etiqueta
-                            </a>
-                        </li>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-light" asp-area="Admin" asp-controller="Categorias" asp-action="Index">
+                                    <i class="bi bi-bookmark-check-fill"></i> Categorias
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-light" asp-area="Admin" asp-controller="Articulos"
+                                   asp-action="Index">
+                                    <i class="bi bi-sticky-fill"></i> Articulos
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-light" asp-area="Admin" asp-controller="Comentarios"
+                                   asp-action="Index">
+                                    <i class="bi bi-chat-left-dots-fill"></i> Comentarios
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-light" asp-area="Admin" asp-controller="Etiquetas"
+                                   asp-action="Index">
+                                    <i class="bi bi-tags-fill"></i> Etiquetas
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-light" asp-area="Admin" asp-controller="Etiquetas"
+                                   asp-action="GetArticuloConEtiquetas">
+                                    <i class="bi bi-archive-fill"></i> Articulo Etiqueta
+                                </a>
+                            </li>
+                        }
                     </ul>
+
 
                     @if (User.Identity.IsAuthenticated)
                     {
@@ -65,7 +75,9 @@
                                 </form>
                             </li>
                         </ul>
-                    }else{
+                    }
+                    else
+                    {
                         <ul class="navbar-nav mx-auto">
                             <li class="nav-item">
                                 <a class="nav-link text-white" asp-area="Front" asp-controller="Accesos"
