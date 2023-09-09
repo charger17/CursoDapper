@@ -1,9 +1,11 @@
 ﻿using BlogDapper.Models;
 using BlogDapper.Repositorio;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BlogDapper.Areas.Admin.Controllers
 {
+    [Authorize]
     [Area("Admin")]
     public class ComentariosController : Controller
     {

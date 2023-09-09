@@ -2,13 +2,13 @@
 using BlogDapper.Repositorio;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Data;
-using System.Data.SqlClient;
 using System.Security.Claims;
 
 namespace BlogDapper.Areas.Front.Controllers
 {
+    [Authorize]
     [Area("Front")]
     public class AccesosController : Controller
     {
@@ -19,12 +19,14 @@ namespace BlogDapper.Areas.Front.Controllers
             _repoAcceso = repoAcceso;
         }
 
+        [AllowAnonymous]
         [HttpGet]
         public IActionResult Acceso()
         {
             return View();
         }
 
+        [AllowAnonymous]
         [HttpPost]
         [AutoValidateAntiforgeryToken]
         public IActionResult Acceso(Usuario user)
@@ -57,12 +59,14 @@ namespace BlogDapper.Areas.Front.Controllers
 
         }
 
+        [AllowAnonymous]
         [HttpGet]
         public IActionResult Registro()
         {
             return View();
         }
 
+        [AllowAnonymous]
         [HttpPost]
         [AutoValidateAntiforgeryToken]
         public IActionResult Registro(Usuario user)
