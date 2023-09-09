@@ -56,5 +56,43 @@ namespace BlogDapper.Areas.Front.Controllers
             }
 
         }
+
+        [HttpGet]
+        public IActionResult Registro()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [AutoValidateAntiforgeryToken]
+        public IActionResult Registro(Usuario user)
+        {
+            if (!ModelState.IsValid)
+            {
+                TempData["mensajeConfirmacion"] = "Algunos campos obligatorios están vacios";
+                return View(user);
+            }
+
+            var existeUser = _repoAcceso.ValidateUser(user);
+
+            if (existeUser)
+            {
+                TempData["mensajeConfirmacion"] = "El usuario ya Existe";
+                return View(user);
+            }
+
+            _repoAcceso.AddUser(user);
+
+            var claims = new List<Claim>
+                {
+                    new Claim(ClaimTypes.Name, user.Login)
+                };
+
+            var claimsIdentity = new ClaimsIdentity(claims, "Login");
+
+            HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity));
+            return RedirectToAction("Index", "Inicio");
+
+        }
     }
 }

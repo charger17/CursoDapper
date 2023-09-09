@@ -30,6 +30,34 @@ namespace BlogDapper.Repositorio
             return validar.ToList();
         }
 
+        public bool ValidateUser(Usuario user)
+        {
+            var sql = "SELECT * FROM Usuario WHERE Login=@Login";
+
+            var existeUsuario = _bd.Query<Usuario>(sql, new
+            {
+                user.Login
+            });
+
+            return existeUsuario.Count() > 0;
+          
+        }
+
+        public void AddUser(Usuario user) 
+        {
+            var Password = obtenerMd5(user.Password);
+            var UserId = Guid.NewGuid().ToString();
+
+            var ingresarUsuarioSql = @"INSERT INTO Usuario(User_ID,Login, Password) VALUES (@User_ID,@Login, @Password);";
+
+            _bd.Execute(ingresarUsuarioSql, new
+            {
+                User_ID = UserId,
+                user.Login,
+                Password
+            });
+        }
+
         private static string obtenerMd5(string valor)
         {
             MD5CryptoServiceProvider x = new MD5CryptoServiceProvider();
