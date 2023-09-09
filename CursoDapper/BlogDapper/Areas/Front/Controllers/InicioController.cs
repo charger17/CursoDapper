@@ -21,9 +21,11 @@ namespace BlogDapper.Areas.Front.Controllers
         {
             ViewData["ListaCategorias"] = _repoSlider.GetSliders();
 
+            var articulos = _repoSlider.GetArticulosForSlider();
+
             //Esta linea es para poder saber si estamos en el home o no
             ViewBag.isHome = true;
-            return View();
+            return View(articulos);
         }
 
         public IActionResult Privacy()

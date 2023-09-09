@@ -19,5 +19,12 @@ namespace BlogDapper.Repositorio
 
             return _bd.Query<Slider>(sqlSlider).ToList();
         }
+
+        public List<Articulo> GetArticulosForSlider()
+        {
+            var sqlSlider = @"SELECT * FROM Articulo ORDER BY IdArticulo DESC";
+
+            return _bd.Query<Articulo>(sqlSlider).ToList();
+        }
     }
 }
