@@ -10,6 +10,7 @@ builder.Services.AddScoped<ICategoriaRepositorio, CategoriaRepositorio>();
 builder.Services.AddScoped<IArticuloRepositorio, ArticuloRepositorio>();
 builder.Services.AddScoped<IComentarioRepositorio, ComentarioRepositorio>();
 builder.Services.AddScoped<IEtiquetaRepositorio, EtiquetaRepositorio>();
+builder.Services.AddScoped<IAccesoRepositorio, AccesoRepositorio>();
 
 var app = builder.Build();
 
