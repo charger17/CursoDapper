@@ -13,5 +13,7 @@ namespace BlogDapper.Repositorio
         public Articulo GetArticuloForSlider(int id);
 
         public void InsertComentarioForSlider(Comentario comentario);
+
+        public List<Comentario> GetComentariosForSlider(int id);
     }
 }

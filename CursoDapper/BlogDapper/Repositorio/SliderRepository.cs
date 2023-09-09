@@ -56,5 +56,15 @@ namespace BlogDapper.Repositorio
                 FechaCreacion = DateTime.Now
             });
         }
+
+        public List<Comentario> GetComentariosForSlider(int id)
+        {
+            var sqlSlider = @"SELECT * FROM Comentario WHERE ArticuloId =@ArticuloId ORDER BY IdComentario DESC";
+
+            return _bd.Query<Comentario>(sqlSlider, new
+            {
+                ArticuloId = id
+            }).ToList();
+        }
     }
 }

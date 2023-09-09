@@ -49,6 +49,7 @@ namespace BlogDapper.Areas.Front.Controllers
                 return RedirectToAction(nameof(Index));
             }
             var articulo = _repoSlider.GetArticuloForSlider(id.GetValueOrDefault());
+            ViewData["ListaComentarios"] = _repoSlider.GetComentariosForSlider(id.GetValueOrDefault());
 
             return View(articulo);
         }
