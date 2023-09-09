@@ -1,0 +1,23 @@
+﻿using BlogDapper.Models;
+using System.Data.SqlClient;
+using System.Data;
+using Dapper;
+
+namespace BlogDapper.Repositorio
+{
+    public class SliderRepository : ISliderRepository
+    {
+        private readonly IDbConnection _bd;
+        public SliderRepository(IConfiguration configuration)
+        {
+            _bd = new SqlConnection(configuration.GetConnectionString("ConexionSQLLocalDB"));
+        }
+
+        public List<Slider> GetSliders()
+        {
+            var sqlSlider = @"SELECT * FROM Slider";
+
+            return _bd.Query<Slider>(sqlSlider).ToList();
+        }
+    }
+}
