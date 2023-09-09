@@ -1,4 +1,5 @@
 using BlogDapper.Repositorio;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,6 +11,17 @@ builder.Services.AddScoped<ICategoriaRepositorio, CategoriaRepositorio>();
 builder.Services.AddScoped<IArticuloRepositorio, ArticuloRepositorio>();
 builder.Services.AddScoped<IComentarioRepositorio, ComentarioRepositorio>();
 builder.Services.AddScoped<IEtiquetaRepositorio, EtiquetaRepositorio>();
+builder.Services.AddScoped<IAccesoRepositorio, AccesoRepositorio>();
+
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(options =>
+    {
+        options.ExpireTimeSpan = TimeSpan.FromMinutes(20);
+        options.Cookie.Name = "CookieAuthentication";
+        options.LoginPath = "/Front/Accesos/Acceso";
+        options.SlidingExpiration = true;
+        options.AccessDeniedPath = "/Front/Accesos/ErrorAcceso";
+    });
 
 var app = builder.Build();
 
@@ -22,6 +34,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(
