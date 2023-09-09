@@ -1,8 +1,55 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@model IEnumerable<Articulo>
+@{
+    ViewData["Title"] = "Página de inicio";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="row my-4">
+    <div class="col-sm-12 col-md-8">
+        <h1 class="text-center text-white bg-secondary py-1">Últimos Artículos</h1>
+
+        @if (Model.Count() > 0)
+        {
+            <hr/>
+            <div class="row">
+                @foreach (var articulo in Model)
+                {
+                    <div class="card" style="width: 18rem;">
+                        <img src="@articulo.Imagen" class="card-img-top mt-2">
+                        <div class="card-body">
+                            <h5 class="card-title">@articulo.Titulo</h5>
+                            <a asp-action="Detalle" class="btn btn-secondary" asp-route-id="@articulo.IdArticulo">
+                                <i class="bi bi-info-circle-fill"></i> Más información 
+                            </a>
+                        </div>
+                    </div>
+                    
+                }
+
+            </div>
+        }
+        else
+        {
+            <p>No hay articulos</p>
+        }
+    </div>
+
+    @* Lista de categorias *@
+    <div class="col-sm-12 col-md-4">
+        <h3>Categorias</h3>
+        @if (ViewData["ListaCategorias"] != null)
+        {
+            <ul class="list-group">
+                @foreach (var item in (List<Categoria>)ViewData["ListaCategorias"])
+                {
+                    <li class="list-group-item bg-secondary text-white">
+                        @item.Nombre
+                    </li>
+                }
+            </ul>
+        }
+        else
+        {
+            <p>No hay categorias</p>
+        }
+    </div>
 </div>

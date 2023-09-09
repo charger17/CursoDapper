@@ -12,6 +12,7 @@ builder.Services.AddScoped<IArticuloRepositorio, ArticuloRepositorio>();
 builder.Services.AddScoped<IComentarioRepositorio, ComentarioRepositorio>();
 builder.Services.AddScoped<IEtiquetaRepositorio, EtiquetaRepositorio>();
 builder.Services.AddScoped<IAccesoRepositorio, AccesoRepositorio>();
+builder.Services.AddScoped<ISliderRepository, SliderRepository>();
 
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(options =>

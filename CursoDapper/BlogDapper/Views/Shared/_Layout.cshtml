@@ -15,9 +15,9 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark border-bottom box-shadow">
             <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Inicio" asp-action="Index">BlogDapper</a>
+                <a class="navbar-brand" asp-area="Front" asp-controller="Inicio" asp-action="Index">BlogDapper</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -92,6 +92,13 @@
                 </div>
             </div>
         </nav>
+
+        @* Aquí va la vista parcial  para el slider *@
+        @if (ViewBag.isHome == true)
+        {
+            <partial name="_Slider" />
+        }
+
     </header>
     <div class="container">
         <main role="main" class="pb-3">
