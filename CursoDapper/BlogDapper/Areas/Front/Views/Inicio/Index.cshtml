@@ -32,4 +32,24 @@
             <p>No hay articulos</p>
         }
     </div>
+
+    @* Lista de categorias *@
+    <div class="col-sm-12 col-md-4">
+        <h3>Categorias</h3>
+        @if (ViewData["ListaCategorias"] != null)
+        {
+            <ul class="list-group">
+                @foreach (var item in (List<Categoria>)ViewData["ListaCategorias"])
+                {
+                    <li class="list-group-item bg-secondary text-white">
+                        @item.Nombre
+                    </li>
+                }
+            </ul>
+        }
+        else
+        {
+            <p>No hay categorias</p>
+        }
+    </div>
 </div>

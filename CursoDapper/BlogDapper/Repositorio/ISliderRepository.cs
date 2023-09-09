@@ -7,5 +7,7 @@ namespace BlogDapper.Repositorio
         public List<Slider> GetSliders();
 
         public List<Articulo> GetArticulosForSlider();
+
+        public List<Categoria> GetCategoriasForSlider();
     }
 }
